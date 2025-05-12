@@ -1,0 +1,10 @@
+{
+    "extensions.experimental.affinity": {
+        "asvetliakov.vscode-neovim": 1
+    },
+    "vscode-neovim.useWSL": true,
+    "vscode-neovim.neovimExecutablePaths.linux": "/snap/bin/nvim",
+    "workbench.activityBar.location": "top",
+    "workbench.startupEditor": "none",
+    "editor.wordWrap": "bounded"
+}
