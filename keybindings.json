@@ -8,7 +8,7 @@
                 "workbench.action.toggleSidebarVisibility"
             ]
         },
-        "when": "listFocus && !inputFocus && !notebookCellListFocused"
+        "when": "listFocus && !inputFocus && !notebookCellListFocused && !explorerResourceIsFolder"
     },
     {
         "key": "ctrl+shift+e",
@@ -17,23 +17,15 @@
     },
     {
         "key": "ctrl+shift+tab",
-        "command": "workbench.action.previousEditor"
+        "command": "workbench.action.previousEditorInGroup"
     },
     {
         "key": "ctrl+tab",
-        "command": "workbench.action.nextEditor"
+        "command": "workbench.action.nextEditorInGroup"
     },
     {
         "key": "ctrl+tab",
         "command": "-workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup",
         "when": "!activeEditorGroupEmpty"
-    },
-    {
-        "key": "ctrl+pageup",
-        "command": "-workbench.action.previousEditor"
-    },
-    {
-        "key": "ctrl+pagedown",
-        "command": "-workbench.action.nextEditor"
     }
 ]
