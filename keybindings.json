@@ -1,0 +1,31 @@
+[
+    {
+        "key": "enter",
+        "command": "runCommands",
+        "args":{
+            "commands": [
+                "list.select",
+                "workbench.action.toggleSidebarVisibility"
+            ]
+        },
+        "when": "listFocus && !inputFocus && !notebookCellListFocused && !explorerResourceIsFolder"
+    },
+    {
+        "key": "ctrl+shift+e",
+        "command": "workbench.action.toggleSidebarVisibility",
+        "when": "listFocus && explorerViewletVisible"
+    },
+    {
+        "key": "ctrl+shift+tab",
+        "command": "workbench.action.previousEditorInGroup"
+    },
+    {
+        "key": "ctrl+tab",
+        "command": "workbench.action.nextEditorInGroup"
+    },
+    {
+        "key": "ctrl+tab",
+        "command": "-workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup",
+        "when": "!activeEditorGroupEmpty"
+    }
+]
