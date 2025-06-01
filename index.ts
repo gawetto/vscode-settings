@@ -24,35 +24,8 @@ type KeyBinding = {
     args?: Record<string, any>;
 };
 
-
-function filterIncludeKeys(keys: Keys, bindings: KeyBinding[]): KeyBinding[] {
-    return bindings.filter(binding => binding.key.some(k => isInclude(k, keys)));
-}
-
-function battingsearch(allbinding: KeyBinding[], keys: KeyStroke): KeyBinding[] {
-    return allbinding.filter(binding =>
-        isbatting(binding.key, keys)
-    );
-}
-
-function isDualStroke(stroke: KeyStroke): stroke is [Keys, Keys] {
-    return stroke[1] !== undefined
-}
-
-function isbatting(a: KeyStroke, b: KeyStroke): boolean {
-    const [shorter, longer] = a.length > b.length ? [b, a] : [a, b];
-    for (let i = 0; i < shorter.length; i++) {
-        if (!equalKeys(shorter[i], longer[i])) return false;
-    }
-    return true;
-}
-
 function isInclude(source: Keys, target: Keys): boolean {
     return [...target].every(key => source.has(key));
-}
-
-function isIncludeInStroke(source: KeyStroke, target: Keys): boolean {
-    return source.some(keys => isInclude(keys, target));
 }
 
 function equalKeys(a: Keys, b: Keys): boolean {
@@ -84,14 +57,6 @@ function toJson(keyBinding: KeyBinding[]): string {
     })), null, 2);
 }
 
-function separateBinding(binding: KeyBinding[]): [KeyBinding[], KeyBinding[]] {
-    return binding.reduce<[KeyBinding[] , KeyBinding[]]>((acc, binding) => {
-        if (isDualStroke(binding.key)) acc[1].push(binding);
-        else acc[0].push(binding);
-        return acc;
-    }, [[], []]);
-};
-
 function addLeader(binding: KeyBinding): KeyBinding {
     if (binding.key.length == 2) {console.dir(binding); throw new Error("2 stroke can't add Leader.");}
     return {
@@ -109,10 +74,10 @@ const general_replacements: [Key, Keys][] = [
     ['right', new Set(['alt', 'l'])],
     ['up', new Set(['alt', 'k'])],
     ['down', new Set(['alt', 'j'])],
-    ['pageup', new Set(['alt', 'ctrl', 'k'])],
-    ['pagedown', new Set(['alt', 'ctrl', 'j'])],
-    ['home', new Set(['alt', 'ctrl', 'h'])],
-    ['end', new Set(['alt', 'ctrl', 'l'])],
+    ['pageup', new Set(['alt', 'w'])],
+    ['pagedown', new Set(['alt', 's'])],
+    ['home', new Set(['alt', 'a'])],
+    ['end', new Set(['alt', 'd'])],
     ['escape', new Set(['ctrl', 'oem_102'])],
     ['delete', new Set(['shift', 'backspace'])],
     ['insert', new Set(['alt', 'oem_5'])],
@@ -144,8 +109,8 @@ const ctrlk_replacements: [Keys, Keys][] = [
 ];
 
 const special_replacements: [[Keys,Keys], KeyStroke][] = [
-    [[new Set<Key>(['alt','home']), new Set<Key>(['alt','home'])], [new Set(['ctrl','oem_7']), new Set(['alt','h'])]],
-    [[new Set<Key>(['alt','end']), new Set<Key>(['alt','end'])], [new Set(['ctrl','oem_7']), new Set(['alt','l'])]],
+    [[new Set<Key>(['alt','home']), new Set<Key>(['alt','home'])], [new Set(['ctrl','oem_7']), new Set(['alt','a'])]],
+    [[new Set<Key>(['alt','end']), new Set<Key>(['alt','end'])], [new Set(['ctrl','oem_7']), new Set(['alt','d'])]],
 ];
 
 const [special_binding, ctrlk_binding, other_binding] = defaultKeyBinding.reduce<[KeyBinding[], KeyBinding[], KeyBinding[]]>((acc, binding) => {
